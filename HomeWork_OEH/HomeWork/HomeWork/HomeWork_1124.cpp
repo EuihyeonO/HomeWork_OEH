@@ -59,6 +59,20 @@ char* StringChange(char* String, const char* Text_1, const char* Text_2)
 	}
 }
 
+char* StringMerge(char* String, const int String_len, const char* Text_1)
+{
+	int count = StringSize(String);
+	
+	for (int i = 0; (count + i < String_len) || i < StringSize(Text_1); i++)
+	{
+		String[count + i] = Text_1[i];
+	}
+
+	String[String_len - 1] = 0;
+
+	return String;
+}
+
 int main() {
 
 	char Arr1[20] = "a111a222a333";
@@ -76,14 +90,25 @@ int main() {
 	printf("222, 22 : %d\n", StringCompare(Arr3, Arr6));
 	printf("333, 333 : %d\n\n", StringCompare(Arr4, Arr7));
 
-	printf("교체함수 결과\n\n(a222a222a333)이 출력되어야 함\n");
+	printf("교체함수 결과\n\na111a222a333에서 111을 333으로 교체\n");
 	printf("%s\n\n", StringChange(Arr1,Arr2,Arr3));
-	printf("(a333a222a333)이 출력되어야 함\n");
+	printf("a333a222a333에서 222를 333으로 교체\n");
 	printf("%s\n\n", StringChange(Arr1, Arr3, Arr4));
-	printf("(a111a222a333)이 출력되어야 함\n");
+	printf("a333a222a333에서 앞의 333을 111으로 교체\n");
 	printf("%s\n\n", StringChange(Arr1, Arr4, Arr2));
-	printf("(a111a222a111)이 출력되어야 함\n");
+	printf("a111a222a333에서 333을 111으로 교체\n");
 	printf("%s\n\n", StringChange(Arr1, Arr4, Arr2));
+
+	printf("덛붙히는 함수 결과\n");
+	printf("111 뒤에 222붙힘\n");
+	printf("%s\n\n", StringMerge(Arr2, 10, Arr3));
+	printf("111222뒤에 333붙힘\n");
+	printf("%s\n\n", StringMerge(Arr2, 10, Arr4));
+	printf("222뒤에 22붙힘\n");
+	printf("%s\n\n", StringMerge(Arr3, 10, Arr6));
+	printf("333뒤에 111붙힘\n");
+	printf("%s\n\n", StringMerge(Arr7, 10, Arr5));
+
 
 
 	_getch();
