@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="HomeWork_1118.cpp" />
     <ClCompile Include="HomeWork_1123.cpp" />
+    <ClCompile Include="HomeWork_1124.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
