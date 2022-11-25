@@ -21,6 +21,9 @@
     <ClCompile Include="HomeWork_1123.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="HomeWork_1125.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="HomeWork_1124.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
