@@ -21,7 +21,7 @@ int StringSize(const char* _String)
     {
         len++;
     }
-    return len;
+    return len; 
 }
 
 bool StringCompare(const char* Text_1, const char* Text_2) 
