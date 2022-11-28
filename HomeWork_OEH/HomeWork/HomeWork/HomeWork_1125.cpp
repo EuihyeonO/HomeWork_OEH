@@ -77,8 +77,8 @@ int main()
 
 	printf_s("1234567의 길이 반환 결과: %d\n\n", num_length);
 
-	ChangeNumberToString(arr1, 30, 987654321);
-	printf_s("정수 1324567을 문자열로 변환 결과 : %s\n\n", arr1);
+	ChangeNumberToString(arr1, 30, 1234567);
+	printf_s("정수 1234567을 문자열로 변환 결과 : %s\n\n", arr1);
 	
 	num = ChangeStringToNumber(arr2);
 	printf_s("문자열 1234567을 정수로 변환 결과: %d\n\n", num);
