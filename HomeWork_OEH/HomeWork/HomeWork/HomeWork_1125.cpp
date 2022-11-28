@@ -33,8 +33,13 @@ int NumberLength(int num) //정수의 길이를 반환하는 함수
 	return length_num;
 }
 
-char* ChangeNumberToString(char* const string, int string_len, int number) //정수를 문자열로 변환하는 함수
+void ChangeNumberToString(char* const string, int string_len, int number) //정수를 문자열로 변환하는 함수
 {
+	if (string_len < NumberLength(number))
+	{
+		printf("배열의 크기가 작아 문자열을 저장할 수 없습니다.");
+		return;
+	}
 
 	int number_len = NumberLength(number);
 	int length_count = 1;
@@ -48,7 +53,6 @@ char* ChangeNumberToString(char* const string, int string_len, int number) //정�
 	
 	string[number_len] = 0; //문자열의 마지막을 알리는 0을 삽입
 
-	return string;
 }
 
 int ChangeStringToNumber(char* const string) //문자열을 정수로 변환하는 함수
