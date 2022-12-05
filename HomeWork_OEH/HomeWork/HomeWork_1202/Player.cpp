@@ -1,58 +1,8 @@
-#include "Player.h"
-#include "ShootingMap.h"
+#include "player.h"
 #include <conio.h>
+#include <Windows.h>
 
-bool Player::IsAbleToMoveRight(Int4& pos)
-{
-	if (pos.X >= 30)
-	{
-		return false;
-	}
 
-	else
-	{
-		return true;
-	}
-}
-
-bool Player::IsAbleToMoveLeft(Int4& pos)
-{
-	if (pos.X <= 0)
-	{
-		return false;
-	}
-
-	else
-	{
-		return true;
-	}
-}
-
-bool Player::IsAbleToMoveUp(Int4& pos)
-{
-	if (pos.Y <= 0)
-	{
-		return false;
-	}
-
-	else
-	{
-		return true;
-	}
-}
-
-bool Player::IsAbleToMoveDown(Int4& pos)
-{
-	if (pos.Y >= 30)
-	{
-		return false;
-	}
-
-	else
-	{
-		return true;
-	}
-}
 
 void Player::Move(const Int4& _Dir, ShootingMap& _map)
 {
@@ -63,8 +13,26 @@ void Player::Move(const Int4& _Dir, ShootingMap& _map)
 
 	Pos += _Dir;
 }
+void Player::ShootBullet(Monster& _monster, Int4 Pos, ShootingMap& _map, Bullet& _bullet)
+{
+	if (0 == _kbhit())
+	{
+		return;
+	}
 
-void Player::Update(ShootingMap& _map)
+	int Input1 = _getch();
+
+	if (Input1 == 224)
+	{
+		int Input2 = _getch();
+		_bullet.BulletMove(_monster, Pos, _map, Input2);
+	}
+
+
+}
+
+
+void Player::Update(ShootingMap& _map, Bullet& _bullet, Monster& _monster)
 {
 
 
@@ -74,37 +42,41 @@ void Player::Update(ShootingMap& _map)
 	}
 
 	int Input = _getch();
-
+	int input2 = 0;
 
 	switch (Input)
 	{
 	case 'a':
 	case 'A':
-		if (IsAbleToMoveLeft(Pos) == true) 
+		if (_map.IsAbleToMoveLeft(Pos) == true) 
 		{
 			Move({ -1, 0 }, _map);
 		}
 		break;
 	case 'd':
 	case 'D':
-		if (IsAbleToMoveRight(Pos) == true)
+		if (_map.IsAbleToMoveRight(Pos) == true)
 		{
 			Move({ 1, 0 }, _map);
 		}
 		break;
 	case 's':
 	case 'S':
-		if (IsAbleToMoveDown(Pos) == true)
+		if (_map.IsAbleToMoveDown(Pos) == true)
 		{
 			Move({ 0, 1 }, _map);
 		}
 		break;
 	case 'w':
 	case 'W':
-		if (IsAbleToMoveUp(Pos) == true)
+		if (_map.IsAbleToMoveUp(Pos) == true)
 		{
 			Move({ 0, -1 }, _map);
 		}
+		break;
+	case 224:
+		input2 = _getch();
+		_bullet.BulletMove(_monster, Pos, _map, input2);
 		break;
 	default:
 		break;

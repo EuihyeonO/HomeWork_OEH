@@ -11,23 +11,28 @@
 #include "ShootingMap.h"
 #include "Player.h"
 #include <Windows.h>
+#include "Monster.h"
 
 int main()
 {
     ShootingMap NewMap;
     Player NewPlayer;
+    Monster NewMonster;
+    Bullet NewBullet;
 
     NewPlayer.SetPos({ 2, 2 });
+    NewMonster.SetPos({ 9, 2 });
+ 
 
     NewMap.Init('o');
-
+    NewMap.SetTile(NewMonster.GetPos(), NewMonster.GetDisplayChar());
 
     while (true)
     {
         system("cls");
 
         // 움직이고
-        NewPlayer.Update(NewMap);
+        NewPlayer.Update(NewMap, NewBullet,NewMonster);
 
         // 적용하고.
         NewMap.SetTile(NewPlayer.GetPos(), NewPlayer.GetDisplayChar());
@@ -35,7 +40,7 @@ int main()
         // 그려진다.
         NewMap.Render();
         // 1000 이
-        Sleep(100);
+        Sleep(500);
     }
 
 }

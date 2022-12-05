@@ -29,3 +29,55 @@ void ShootingMap::SetTile(const Int4& _Pos, char _Char)
 {
 	ArrTile[_Pos.Y][_Pos.X] = _Char;
 }
+
+bool ShootingMap::IsAbleToMoveRight(Int4& pos)
+{
+	if (pos.X >= 29)
+	{
+		return false;
+	}
+
+	else
+	{
+		return true;
+	}
+}
+
+bool ShootingMap::IsAbleToMoveLeft(Int4& pos)
+{
+	if (pos.X <= 0)
+	{
+		return false;
+	}
+
+	else
+	{
+		return true;
+	}
+}
+
+bool ShootingMap::IsAbleToMoveUp(Int4& pos)
+{
+	if (pos.Y <= 1)
+	{
+		return false;
+	}
+
+	else
+	{
+		return true;
+	}
+}
+
+bool ShootingMap::IsAbleToMoveDown(Int4& pos)
+{
+	if (pos.Y >= 29)
+	{
+		return false;
+	}
+
+	else
+	{
+		return true;
+	}
+}

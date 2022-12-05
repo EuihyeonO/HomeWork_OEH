@@ -4,10 +4,14 @@
     <ClInclude Include="ShootingMap.h" />
     <ClInclude Include="ContentsMath.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="Bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ShootingMap.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShootingGame.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Bullet.cpp" />
   </ItemGroup>
 </Project>

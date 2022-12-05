@@ -18,4 +18,19 @@ public:
 
 		return *this;
 	}
+
+	bool operator ==(const Int4& _Value)
+	{
+
+		if (X == _Value.X &&
+			Y == _Value.Y &&
+			Z == _Value.Z &&
+			W == _Value.W)
+		{
+			return true;
+		}
+		else
+			return false;
+
+	}
 };

@@ -11,6 +11,10 @@ public:
 	{
 		return ArrTile[y][x];
 	}
+	bool IsAbleToMoveRight(Int4& pos);
+	bool IsAbleToMoveLeft(Int4& pos);
+	bool IsAbleToMoveUp(Int4& pos);
+	bool IsAbleToMoveDown(Int4& pos);
 
 private:
 	char ArrTile[30][31];

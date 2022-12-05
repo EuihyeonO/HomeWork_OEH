@@ -1,6 +1,6 @@
 #pragma once
-#include "ContentsMath.h"
 #include "ShootingMap.h"
+#include "Bullet.h"
 
 class Player
 {
@@ -24,13 +24,9 @@ public:
 		return DisplayChar;
 	}
 
-	bool IsAbleToMoveRight(Int4& pos);
-	bool IsAbleToMoveLeft(Int4& pos);
-	bool IsAbleToMoveUp(Int4& pos);
-	bool IsAbleToMoveDown(Int4& pos);
+	void Update(ShootingMap& _map, Bullet& _bullet, Monster& _monster);
 
-	void Update(ShootingMap& _map);
-
+	void ShootBullet(Monster& _monster, Int4 Pos, ShootingMap& _map, Bullet& _bullet);
 private:
 	char DisplayChar = '*';
 	Int4 Pos;
