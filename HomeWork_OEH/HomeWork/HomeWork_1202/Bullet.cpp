@@ -37,6 +37,7 @@ void Bullet::BulletMove(Monster& _Monster, Int4 _pos, ShootingMap& _map, int _in
 			_map.SetTile(Pos, 'o');
 			SetPos(1, 0);
 			_map.SetTile(Pos, GetDisplayChar());
+			Sleep(1000);
 		}
 		_map.SetTile(Pos, 'o');
 	}
