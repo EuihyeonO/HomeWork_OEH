@@ -47,15 +47,14 @@ public:
 		return DropTime;
 	}
 
-	Boom* Boomtimer(Player& _player, Boom* _boom, int timestack);
 
 protected:
 
 private:
 	static int NumOfBoom;
 
-	int4 Pos;
-	int DropTime;
+	int4 Pos = {0 , 0};
+	int DropTime = 0;
 
 	wchar_t RenderChar = L'¢Â';
 };

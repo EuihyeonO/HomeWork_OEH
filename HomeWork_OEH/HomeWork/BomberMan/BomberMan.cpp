@@ -18,7 +18,11 @@ int main()
     Screen.ScreenInit({ 15, 10 }, L'■');
     int TimeStack = 0;
 
-    Boom* boom = nullptr;
+    Boom* boom[5];
+    for (int i = 0; i < 5; i++)
+    {
+        boom[i] = nullptr;
+    }
 
     // 정상종료를 시켜줘야 하는데.
     while (true)
@@ -26,18 +30,34 @@ int main()
         ++TimeStack;
 
         system("cls");
-        Screen.ScreenClear();
 
-        boom = MainPlayer.Update(boom, TimeStack);
+        for (int i = 0; i < 5; i++)
+        {   
+            if (boom[i] == nullptr)
+            {
+                Screen.ScreenClear();
+                boom[i] = MainPlayer.Update(boom[i], TimeStack);
+               
+                if (boom[i] != nullptr)
+                {
+                    break;
+                }
+            }
+            Screen.ScreenClear();
+            MainPlayer.Update(boom[i], TimeStack);
+        }
 
-        if (boom != nullptr && TimeStack - boom->GetDropTime() >= 30)
+        for (int i = 0; i < 5; i++)
         {
-            delete boom;
-            boom = nullptr;
+            if (boom[i] != nullptr && TimeStack - (boom[i]->GetDropTime()) >= 5)
+            {
+                delete boom[i];
+                boom[i] = nullptr;
+            }
         }
 
         Screen.ScreenRender();
-        Sleep(100);
+        Sleep(500);
     }    
     
     LeckCheck();

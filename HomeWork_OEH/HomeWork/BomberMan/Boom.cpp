@@ -19,6 +19,11 @@ Boom::~Boom()
 
 Boom* Boom::DropBoom(int4 _pos, int _timestack)
 {
+	if (NumOfBoom >= 6)
+	{
+		return nullptr;
+	}
+
 	Boom* _boom = new Boom();
 	_boom->SetPos(_pos);
 	_boom->SetTimeStack(_timestack);
