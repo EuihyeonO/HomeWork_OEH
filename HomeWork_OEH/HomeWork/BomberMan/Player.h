@@ -2,7 +2,10 @@
 #include "ConsoleGameMath.h"
 #include "ConsoleGameScreen.h"
 
+
 // ¼³¸í :
+class Boom;
+
 class Player
 {
 public:
@@ -26,7 +29,12 @@ public:
 		return RenderChar;
 	}
 
-	void Move(ConsoleGameScreen& _screen);
+	Boom* Update(Boom* _boom, int _value);
+	
+	Boom* GetMyboom()
+	{
+		return myboom;
+	}
 
 protected:
 
@@ -34,5 +42,6 @@ private:
 	int4 Pos = { 0, 0 };
 	wchar_t RenderChar = L'¡Ú';
 
+	Boom* myboom;
 };
 

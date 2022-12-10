@@ -58,8 +58,13 @@ void ConsoleGameLine::Render()
 
 void ConsoleGameLine::Clear()
 {
+
 	for (size_t i = 0; i < XCount; i++)
 	{
+		if (Arr[i] == L'¢Â')
+		{
+			continue;
+		}
 		Arr[i] = BaseChar;
 	}
 	Arr[XCount] = 0;
@@ -67,8 +72,12 @@ void ConsoleGameLine::Clear()
 
 
 ///////////////////////// ConsoleGameScreen
+
+ConsoleGameScreen* ConsoleGameScreen::MainScreen = nullptr;
+
 ConsoleGameScreen::ConsoleGameScreen()
 {
+	MainScreen = this;
 }
 
 ConsoleGameScreen::~ConsoleGameScreen()
@@ -127,6 +136,16 @@ bool ConsoleGameScreen::IsOver(int4 _Pos)
 		return true;
 	}
 
+	return false;
+}
+
+bool ConsoleGameScreen::isthereBoom(int4 _pos)
+{
+	if (Lines[_pos.Y][_pos.X] == L'¢Â')
+	{
+		return true;
+	}
+	
 	return false;
 }
 

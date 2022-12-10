@@ -1,19 +1,31 @@
 #include "Player.h"
+#include "Boom.h"
 #include <conio.h>
+#include <ctime>
 
 Player::Player()
 {
+	myboom = new Boom();
 }
 
 Player::~Player()
 {
+	delete myboom;
 }
 
-void Player::Move(ConsoleGameScreen& _screen)
+Boom* Player::Update(Boom* _boom, int _value)
 {
+	if (ConsoleGameScreen::GetMainScreen()->GetTileChar(Pos) != myboom->GetRenderChar())
+	{
+		ConsoleGameScreen::GetMainScreen()->SetPixelChar(GetPos(), GetRenderChar());
+	}
+
+	int4 NextPos = Pos;
+	Boom* boom = nullptr;
+
 	if (_kbhit() == 0)
 	{
-		return;
+		return _boom;
 	}
 
 	int input = _getch();
@@ -22,36 +34,38 @@ void Player::Move(ConsoleGameScreen& _screen)
 	{
 	case 'a':
 	case 'A':
-		if (_screen.IsOver(Pos) == 0)
-		{
-			Pos += {-1, 0};
-		}
+		NextPos += {-1, 0};
 		break;
 
 	case 'd':
 	case 'D':
-		if (_screen.IsOver(Pos) == 0)
-		{
-			Pos += {1, 0};
-		}
+		NextPos += {1, 0};
 		break;
 
 	case 's':
 	case 'S':
-		if (_screen.IsOver(Pos) == 0)
-		{
-			Pos += {0, 1};
-		}
+		NextPos += {0, 1};
 		break;
 	case 'w':
 	case 'W':
-		if (_screen.IsOver(Pos) == 0)
-		{
-			Pos += {0, -1};
-		}
+		NextPos += {0, -1};
+		break;
+	case 'f':
+	case 'F':
+		boom = myboom->DropBoom(GetPos(), _value);
 		break;
 	default:
 		break;
 	}
+
+
+	if (ConsoleGameScreen::GetMainScreen()->IsOver(NextPos) == 0 && ConsoleGameScreen::GetMainScreen()->isthereBoom(NextPos) == 0)
+	{
+		Pos = NextPos;
+	}
+
+	if (boom != nullptr)
+		return boom;
+	else return _boom;
 }
 

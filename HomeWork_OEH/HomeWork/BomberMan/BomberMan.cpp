@@ -6,30 +6,40 @@
 #include "Player.h"
 #include "GameEngineDebug.h"
 #include <conio.h>
+#include "Boom.h"
 
 ConsoleGameScreen Screen;
 Player MainPlayer;
 
-
 int main()
 {
-    LeckCheck();
 
     // 지역변수로 만들어졌어.
     Screen.ScreenInit({ 15, 10 }, L'■');
+    int TimeStack = 0;
+
+    Boom* boom = nullptr;
 
     // 정상종료를 시켜줘야 하는데.
     while (true)
     {
+        ++TimeStack;
+
         system("cls");
         Screen.ScreenClear();
 
-        MainPlayer.Move(Screen);
+        boom = MainPlayer.Update(boom, TimeStack);
 
-        Screen.SetPixelChar(MainPlayer.GetPos(), MainPlayer.GetRenderChar());
+        if (boom != nullptr && TimeStack - boom->GetDropTime() >= 30)
+        {
+            delete boom;
+            boom = nullptr;
+        }
 
         Screen.ScreenRender();
-        Sleep(500);
-    }
+        Sleep(100);
+    }    
+    
+    LeckCheck();
 
 }
