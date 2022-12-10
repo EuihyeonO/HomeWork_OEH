@@ -13,7 +13,7 @@ Player::~Player()
 	delete myboom;
 }
 
-Boom* Player::Update(Boom* _boom, int _value)
+void Player::Update(int _value, Boom* _arr[])
 {
 	if (ConsoleGameScreen::GetMainScreen()->GetTileChar(Pos) != myboom->GetRenderChar())
 	{
@@ -25,7 +25,7 @@ Boom* Player::Update(Boom* _boom, int _value)
 
 	if (_kbhit() == 0)
 	{
-		return _boom;
+		return;
 	}
 
 	int input = _getch();
@@ -46,14 +46,25 @@ Boom* Player::Update(Boom* _boom, int _value)
 	case 'S':
 		NextPos += {0, 1};
 		break;
+
 	case 'w':
 	case 'W':
 		NextPos += {0, -1};
 		break;
+
 	case 'f':
 	case 'F':
-		boom = myboom->DropBoom(GetPos(), _value);
-		break;
+
+		for (int i = 0; i < 5; i++)
+		{
+			if (_arr[i] == nullptr) 
+			{
+				_arr[i] = myboom->DropBoom(GetPos(), _value);
+				break;
+			}
+		}
+		return;
+
 	default:
 		break;
 	}
@@ -64,8 +75,7 @@ Boom* Player::Update(Boom* _boom, int _value)
 		Pos = NextPos;
 	}
 
-	if (boom != nullptr)
-		return boom;
-	else return _boom;
+		return;
+
 }
 

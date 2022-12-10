@@ -13,7 +13,7 @@ Boom::Boom()
 
 Boom::~Boom()
 {
-	ConsoleGameScreen::GetMainScreen()->SetPixelChar(Boom::GetPos(), L'бс');
+	ConsoleGameScreen::GetMainScreen()->SetPixelChar(GetPos(), L'бс');
 	--NumOfBoom;
 }
 

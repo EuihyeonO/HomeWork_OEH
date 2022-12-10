@@ -14,42 +14,31 @@ Player MainPlayer;
 int main()
 {
 
-    // 지역변수로 만들어졌어.
+
     Screen.ScreenInit({ 15, 10 }, L'■');
     int TimeStack = 0;
 
     Boom* boom[5];
+
     for (int i = 0; i < 5; i++)
     {
         boom[i] = nullptr;
     }
 
-    // 정상종료를 시켜줘야 하는데.
+
     while (true)
     {
         ++TimeStack;
 
         system("cls");
 
-        for (int i = 0; i < 5; i++)
-        {   
-            if (boom[i] == nullptr)
-            {
-                Screen.ScreenClear();
-                boom[i] = MainPlayer.Update(boom[i], TimeStack);
-               
-                if (boom[i] != nullptr)
-                {
-                    break;
-                }
-            }
-            Screen.ScreenClear();
-            MainPlayer.Update(boom[i], TimeStack);
-        }
+        Screen.ScreenClear();
+        MainPlayer.Update(TimeStack, boom);
+
 
         for (int i = 0; i < 5; i++)
         {
-            if (boom[i] != nullptr && TimeStack - (boom[i]->GetDropTime()) >= 5)
+            if (boom[i] != nullptr && TimeStack - (boom[i]->GetDropTime()) >= 50)
             {
                 delete boom[i];
                 boom[i] = nullptr;
@@ -57,7 +46,7 @@ int main()
         }
 
         Screen.ScreenRender();
-        Sleep(500);
+        Sleep(100);
     }    
     
     LeckCheck();

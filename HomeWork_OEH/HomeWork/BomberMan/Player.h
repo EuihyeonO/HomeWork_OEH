@@ -29,7 +29,7 @@ public:
 		return RenderChar;
 	}
 
-	Boom* Update(Boom* _boom, int _value);
+	void Update(int _value, Boom* _arr[]);
 	
 	Boom* GetMyboom()
 	{
