@@ -13,10 +13,9 @@ Player MainPlayer;
 
 int main()
 {
-
-
+  
     Screen.ScreenInit({ 15, 10 }, L'■');
-    int TimeStack = 0;
+    int TimeCount = 0;
 
     Boom* boom[5];
 
@@ -25,25 +24,16 @@ int main()
         boom[i] = nullptr;
     }
 
-
     while (true)
     {
-        ++TimeStack;
+        ++TimeCount;
 
         system("cls");
 
         Screen.ScreenClear();
-        MainPlayer.Update(TimeStack, boom);
-
-
-        for (int i = 0; i < 5; i++)
-        {
-            if (boom[i] != nullptr && TimeStack - (boom[i]->GetDropTime()) >= 50)
-            {
-                delete boom[i];
-                boom[i] = nullptr;
-            }
-        }
+        MainPlayer.Update(TimeCount, boom);
+        
+        (*boom)->deleteBoom(boom, TimeCount);
 
         Screen.ScreenRender();
         Sleep(100);

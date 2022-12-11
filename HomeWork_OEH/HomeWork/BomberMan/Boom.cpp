@@ -33,3 +33,15 @@ Boom* Boom::DropBoom(int4 _pos, int _timestack)
 	return _boom;
 }
 
+
+void Boom::deleteBoom(Boom* boom[], int _timecount)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if (boom[i] != nullptr && _timecount - (boom[i]->GetDropTime()) >= 30)
+		{
+			delete boom[i];
+			boom[i] = nullptr;
+		}
+	}
+}

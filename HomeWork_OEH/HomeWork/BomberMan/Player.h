@@ -9,15 +9,15 @@ class Boom;
 class Player
 {
 public:
-	// constrcuter destructer
 	Player();
 	~Player();
 
-	// delete Function
 	Player(const Player& _Other) = delete;
 	Player(Player&& _Other) noexcept = delete;
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
+
+	void Update(int _value, Boom* _arr[]);
 
 	int4 GetPos()
 	{
@@ -28,8 +28,6 @@ public:
 	{
 		return RenderChar;
 	}
-
-	void Update(int _value, Boom* _arr[]);
 	
 	Boom* GetMyboom()
 	{
