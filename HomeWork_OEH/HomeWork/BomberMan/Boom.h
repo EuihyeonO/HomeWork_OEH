@@ -1,19 +1,73 @@
 #pragma once
 #include "ConsoleGameMath.h"
+#include "ConsoleGameObject.h"
 
 class Player;
+class ConsoleGameScreen;
 
 class BoomFire
 {
-	int4 upfire;
-	int4 downfire;
-	int4 leftfire;
-	int4 rightfire;
+public:
+
+	bool isThereBoom(int4 pos)
+	{
+		if (upfire == pos)
+		{
+			return true;
+		}
+		if (downfire == pos)
+		{
+			return true;
+		}
+		if (leftfire == pos)
+		{
+			return true;
+		}
+		if (rightfire == pos)
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
+
+	void SetPos(int4 pos)
+	{
+		upfire = pos;
+		downfire = pos;
+		leftfire = pos;
+		rightfire = pos;
+	}
+
+	wchar_t GetRenderChar() 
+	{
+		return RenderChar;
+	}
+
+	void SetRenderChar(wchar_t _value)
+	{
+		RenderChar = _value;
+	}
+
+	void Flowfire();
+
+
+private:
+	int4 upfire = {0,0};
+	int4 downfire = {0,0};
+	int4 leftfire = {0,0};
+	int4 rightfire = {0,0};
+
+	wchar_t RenderChar = L'¡Ø';
 };
 
-class Boom
-{
 
+
+// Boom Å¬·¡½º
+class Boom : public ConsoleGameObject
+{
 public:
 
 	Boom();
@@ -23,52 +77,37 @@ public:
 	Boom(Boom&& _Other) noexcept = delete;
 	Boom& operator=(const Boom& _Other) = delete;
 	Boom& operator=(Boom&& _Other) noexcept = delete;
-
-
-	Boom* DropBoom(int4 _pos, int _value);
-	void deleteBoom(Boom* boom[], int timestack);
 	
-	static int GetNumOfBoom()
+	int GetBombTime()
 	{
-		return NumOfBoom;
-	}
-	
-	void SetTimeStack(int _value)
-	{
-		DropTime = _value;
+		return bombtime;
 	}
 
-	int GetDropTime()
+	void SetBombTime(int _value)
 	{
-		return DropTime;
-	}
-	int4 GetPos()
-	{
-		return Pos;
+		bombtime = _value;
 	}
 
-	void SetPos(int4 _pos)
+	void BombTimeCount();
+
+	int GetRange()
 	{
-		Pos += _pos;
+		return range;
 	}
 
-	wchar_t GetRenderChar()
+	BoomFire* GetBoomFire()
 	{
-		return RenderChar;
+		return boomfire;
 	}
 
-
+	void Explode();
 
 protected:
 
 private:
-	static int NumOfBoom;
 
-	int4 Pos = {0 , 0};
-	int DropTime = 0;
-
+	int bombtime = 50;
+	int range = 4;
 	BoomFire* boomfire;
-
-	wchar_t RenderChar = L'¢Â';
 };
 

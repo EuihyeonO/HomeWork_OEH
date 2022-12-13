@@ -1,12 +1,14 @@
 #pragma once
 #include "ConsoleGameMath.h"
 #include "ConsoleGameScreen.h"
+#include "ConsoleGameObject.h"
 
 
 // ¼³¸í :
 class Boom;
+class obstacle;
 
-class Player
+class Player : public ConsoleGameObject
 {
 public:
 	Player();
@@ -17,29 +19,45 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
-	void Update(int _value, Boom* _arr[]);
-
-	int4 GetPos()
-	{
-		return Pos;
-	}
-
-	wchar_t GetRenderChar()
-	{
-		return RenderChar;
-	}
+	bool Update(obstacle& obstacle);
 	
-	Boom* GetMyboom()
+	Boom** GetMyboom()
 	{
 		return myboom;
 	}
 
+	static int GetNumOfBoom()
+	{
+		return NumOfBoom;
+	}
+
+	static void SetNumOfBoom(int _value)
+	{
+		NumOfBoom += _value;
+	}
+
+	static int GetMaxNumOfBoom()
+	{
+		return MaxNumOfBoom;
+	}
+
+	static void SetMaxNumOfBoom(int _value)
+	{
+		MaxNumOfBoom += _value;
+	}
+
+
+	void deleteBoom();
+	Boom* DropBoom();
+	bool isThereMyBoom(const int4& pos);
+
 protected:
 
 private:
-	int4 Pos = { 0, 0 };
-	wchar_t RenderChar = L'¡Ú';
+	static int NumOfBoom;
+	static int MaxNumOfBoom;
 
-	Boom* myboom;
+
+	Boom** myboom;
 };
 

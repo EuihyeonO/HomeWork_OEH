@@ -36,8 +36,8 @@ public:
 
 	void ScreenRender();
 	void ScreenClear();
+
 	bool IsOver(int4 _Pos);
-	bool isthereBoom(int4 _pos);
 	
 	wchar_t GetTileChar(int4 pos)
 	{

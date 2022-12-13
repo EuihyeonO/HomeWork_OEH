@@ -133,8 +133,16 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ConsoleGameMath.cpp" />
+    <ClCompile Include="ConsoleGameObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ConsoleGameScreen.cpp" />
     <ClCompile Include="GameEngineDebug.cpp" />
+    <ClCompile Include="obstacle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +151,16 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ConsoleGameMath.h" />
+    <ClInclude Include="ConsoleGameObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ConsoleGameScreen.h" />
     <ClInclude Include="GameEngineDebug.h" />
+    <ClInclude Include="obstacle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

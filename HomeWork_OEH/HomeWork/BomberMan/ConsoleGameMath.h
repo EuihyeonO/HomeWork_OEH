@@ -16,4 +16,9 @@ public:
 
 		return *this;
 	}
+
+	bool operator==(const int4& _pos)
+	{
+		return X == _pos.X && Y == _pos.Y;
+	}
 };

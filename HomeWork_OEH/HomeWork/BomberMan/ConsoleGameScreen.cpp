@@ -139,15 +139,6 @@ bool ConsoleGameScreen::IsOver(int4 _Pos)
 	return false;
 }
 
-bool ConsoleGameScreen::isthereBoom(int4 _pos)
-{
-	if (Lines[_pos.Y][_pos.X] == L'¢Â')
-	{
-		return true;
-	}
-	
-	return false;
-}
 
 void ConsoleGameScreen::SetPixelChar(int4 _Pos, wchar_t _Char)
 {

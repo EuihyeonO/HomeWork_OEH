@@ -1,44 +1,50 @@
 ﻿// Bomberman.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
 
-#include <iostream>
 #include "ConsoleGameScreen.h"
 #include "Player.h"
 #include "GameEngineDebug.h"
-#include <conio.h>
 #include "Boom.h"
+#include "obstacle.h"
+#include <iostream>
+#include <conio.h>
 
 ConsoleGameScreen Screen;
 Player MainPlayer;
+obstacle MapObstacle;
 
 int main()
 {
-  
+    LeckCheck();
+
+
     Screen.ScreenInit({ 15, 10 }, L'■');
-    int TimeCount = 0;
 
-    Boom* boom[5];
+    MapObstacle.SetObstacle({ 15,10 });
 
-    for (int i = 0; i < 5; i++)
-    {
-        boom[i] = nullptr;
-    }
+    bool Exit = false;
 
     while (true)
     {
-        ++TimeCount;
 
         system("cls");
 
         Screen.ScreenClear();
-        MainPlayer.Update(TimeCount, boom);
-        
-        (*boom)->deleteBoom(boom, TimeCount);
+        MapObstacle.RenderObstacle();
+
+        Exit = MainPlayer.Update(MapObstacle);
+
+        MainPlayer.deleteBoom();
 
         Screen.ScreenRender();
+
+        if (Exit == true)
+        {
+            break;
+        }
+
         Sleep(100);
     }    
-    
-    LeckCheck();
+
 
 }
