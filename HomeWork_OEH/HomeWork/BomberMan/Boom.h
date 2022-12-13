@@ -106,7 +106,7 @@ protected:
 
 private:
 
-	int bombtime = 50;
+	int bombtime = 30;
 	int range = 4;
 	BoomFire* boomfire;
 };
