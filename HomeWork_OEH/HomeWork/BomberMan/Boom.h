@@ -3,6 +3,14 @@
 
 class Player;
 
+class BoomFire
+{
+	int4 upfire;
+	int4 downfire;
+	int4 leftfire;
+	int4 rightfire;
+};
+
 class Boom
 {
 
@@ -58,6 +66,8 @@ private:
 
 	int4 Pos = {0 , 0};
 	int DropTime = 0;
+
+	BoomFire* boomfire;
 
 	wchar_t RenderChar = L'¢Â';
 };
