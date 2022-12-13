@@ -66,3 +66,17 @@ bool obstacle::isThereObstacle(int4 _pos)
 	return false;
 }
 
+void obstacle::deleteObstacle() // 멤버함수를 통해 할당한 메모리라 그런지 소멸자로 해제하면 오류가 나서 따로 해제 함수 구현
+{
+	for (int i = 0; i < mySize.Y; i++)
+	{
+		if (MapObstacle[i] != nullptr)
+		{
+			delete[] MapObstacle[i];
+			MapObstacle[i] = nullptr;
+		}
+	}
+
+	delete[] MapObstacle;
+	MapObstacle = nullptr;
+}

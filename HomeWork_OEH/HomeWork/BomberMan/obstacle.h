@@ -20,6 +20,8 @@ public:
 	
 	bool isThereObstacle(int4 _pos);
 
+	void deleteObstacle();
+
 protected:
 
 private:

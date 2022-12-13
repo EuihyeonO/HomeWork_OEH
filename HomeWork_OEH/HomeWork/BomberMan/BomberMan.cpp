@@ -46,5 +46,6 @@ int main()
         Sleep(100);
     }    
 
+    MapObstacle.deleteObstacle();
 
 }
