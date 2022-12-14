@@ -18,35 +18,41 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameEngineDebug.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameEngineDebug.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{24a524e3-738a-4ae6-a5bb-674de043df65}</ProjectGuid>
-    <RootNamespace>BomberMan</RootNamespace>
+    <ProjectGuid>{d9b29234-a371-4656-a49c-6f43d2fce5c0}</ProjectGuid>
+    <RootNamespace>GameEngineBase</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -138,49 +144,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="BomberMan.cpp" />
-    <ClCompile Include="Boom.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ConsoleGameMath.cpp" />
-    <ClCompile Include="ConsoleGameObject.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ConsoleGameScreen.cpp" />
-    <ClCompile Include="GameEngineDebug.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="obstacle.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Player.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Boom.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ConsoleGameMath.h" />
-    <ClInclude Include="ConsoleGameObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ConsoleGameScreen.h" />
-    <ClInclude Include="GameEngineDebug.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="obstacle.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Player.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

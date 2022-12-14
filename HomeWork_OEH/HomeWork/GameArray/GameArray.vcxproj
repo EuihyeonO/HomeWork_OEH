@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{24a524e3-738a-4ae6-a5bb-674de043df65}</ProjectGuid>
-    <RootNamespace>BomberMan</RootNamespace>
+    <ProjectGuid>{d59f20b1-7cc0-4e7a-a3c9-f17a9b71ed89}</ProjectGuid>
+    <RootNamespace>GameArray</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,16 +71,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameEngineBase\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameEngineBase\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameEngineBase\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\GameEngineBase\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,47 +139,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BomberMan.cpp" />
-    <ClCompile Include="Boom.cpp">
+    <ClInclude Include="GameEngineArray.h">
       <SubType>
       </SubType>
-    </ClCompile>
-    <ClCompile Include="ConsoleGameMath.cpp" />
-    <ClCompile Include="ConsoleGameObject.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="ConsoleGameScreen.cpp" />
-    <ClCompile Include="GameEngineDebug.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="obstacle.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Player.cpp" />
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Boom.h">
+    <ClCompile Include="GameArray.cpp" />
+    <ClCompile Include="GameEngineArray.cpp">
       <SubType>
       </SubType>
-    </ClInclude>
-    <ClInclude Include="ConsoleGameMath.h" />
-    <ClInclude Include="ConsoleGameObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="ConsoleGameScreen.h" />
-    <ClInclude Include="GameEngineDebug.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="obstacle.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Player.h" />
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
+      <Project>{d9b29234-a371-4656-a49c-6f43d2fce5c0}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
