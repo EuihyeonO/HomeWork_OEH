@@ -1,96 +1,131 @@
+
 #include "Boom.h"
-#include "ConsoleGameScreen.h"
-#include "Player.h"
-#include <ctime>
 #include <conio.h>
+#include "ConsoleGameScreen.h"
+#include "player.h"
+#include "Wall.h"
+#include <Windows.h>
 
-void BoomFire::Flowfire()
+GameEngineArray<GameEngineArray<Boom*>> Boom::BoomMap;
+
+/*static */void Boom::BoomMapInit(int4 _Size)
 {
+	BoomMap.ReSize(_Size.Y);
 
-	upfire += {0, -1};
-	downfire += {0, 1};
-	leftfire += {-1, 0};
-	rightfire += {1, 0};
+	for (size_t y = 0; y < BoomMap.GetCount(); y++)
+	{
+		BoomMap[y].ReSize(_Size.X);
+		for (size_t x = 0; x < BoomMap[y].GetCount(); x++)
+		{
+			BoomMap[y][x] = nullptr;
+		}
+	}
+}
 
-	if (ConsoleGameScreen::GetMainScreen()->IsOver(upfire) == false && (upfire.X%2!=1 || upfire.Y%2!=1)) 
-	{
-		ConsoleGameScreen::GetMainScreen()->SetPixelChar(upfire, GetRenderChar());
-	}
-	else if (upfire.X % 2 == 1 || upfire.Y % 2 == 1)
-	{
-		upfire += {0, 1};
-	}
+/*static */Boom* Boom::GetBoom(int4 _Size)
+{
+	return BoomMap[_Size.Y][_Size.X];
+}
 
-	if (ConsoleGameScreen::GetMainScreen()->IsOver(downfire) == false && (downfire.X % 2 != 1 || downfire.Y % 2 != 1))
-	{
-		ConsoleGameScreen::GetMainScreen()->SetPixelChar(downfire, GetRenderChar());
-	}
-	else if (downfire.X % 2 == 1 || downfire.Y % 2 == 1)
-	{
-		downfire += {0, -1};
-	}
 
-	if (ConsoleGameScreen::GetMainScreen()->IsOver(leftfire) == false && (leftfire.X % 2 != 1 || leftfire.Y % 2 != 1))
+/*static */void Boom::MapClear()
+{
+	for (size_t y = 0; y < BoomMap.GetCount(); y++)
 	{
-		ConsoleGameScreen::GetMainScreen()->SetPixelChar(leftfire, GetRenderChar());
-	}
-	else if (leftfire.X % 2 == 1 || leftfire.Y % 2 == 1)
-	{
-		leftfire += {1, 0};
-	}
-
-	if (ConsoleGameScreen::GetMainScreen()->IsOver(rightfire) == false && (rightfire.X % 2 != 1 || rightfire.Y % 2 != 1))
-	{
-		ConsoleGameScreen::GetMainScreen()->SetPixelChar(rightfire, GetRenderChar());
-	}
-	else if (rightfire.X % 2 == 1 || rightfire.Y % 2 == 1)
-	{
-		rightfire += {-1, 0};
+		for (size_t x = 0; x < BoomMap[y].GetCount(); x++)
+		{
+			BoomMap[y][x] = nullptr;
+		}
 	}
 }
 
 Boom::Boom()
 {
-	SetRenderChar(L'¡Ø');
-	Player::SetNumOfBoom(1);
-
-	boomfire = new BoomFire();
-
-	boomfire->SetRenderChar(L'¡Ø');
+	SetRenderChar(L'¡Ý');
 }
 
 Boom::~Boom()
 {
-	Player::SetNumOfBoom(-1);
-	ConsoleGameScreen::GetMainScreen()->SetPixelChar(GetPos(), L'¡á');
-
-	if (boomfire != nullptr)
-	{
-		delete boomfire;
-		boomfire = nullptr;
-	}
 
 }
 
-void Boom::BombTimeCount()
+void Boom::Update()
 {
-	--bombtime;
-}
-
-void Boom::Explode()
-{
-	if (bombtime == 0)
+	if (CurRange >= Range)
 	{
 		return;
 	}
 
-	if (bombtime <= range) 
-	{
-		GetBoomFire()->SetPos(GetPos());
+	int4 BoomPos = GetPos();
 
-		for (int i = 0; i < range - bombtime + 1; i++)
+	BoomMap[BoomPos.Y][BoomPos.X] = this;
+
+	if (0 > --Time)
+	{
+		++CurRange;
+		// return;
+	}
+
+	// ÆøÅº ±×ÀÚÃ¼´Â ±×³É Ãâ·Â
+	int4 Pos = GetPos();
+	wchar_t MyChar = GetRenderChar();
+	ConsoleGameScreen::GetMainScreen()->SetPixelChar(Pos, MyChar);
+
+	bool LeftWall = false;
+	bool RightWall = false;
+	bool UpWall = false;
+	bool DownWall = false;
+
+	for (int i = 1; i < CurRange; i++)
+	{
+		int4 Left = Pos + int4{ -i, 0 };
+
+		if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Left) && true == Wall::GetIsWall(Left))
 		{
-		GetBoomFire()->Flowfire();
+			LeftWall = true;
+		}
+
+		if (false == LeftWall && false == ConsoleGameScreen::GetMainScreen()->IsOver(Left))
+		{
+			ConsoleGameScreen::GetMainScreen()->SetPixelChar(Left, L'¡ß');
+		}
+
+		int4 Right = Pos + int4{ i, 0 };
+
+		if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Right) && true == Wall::GetIsWall(Right))
+		{
+			RightWall = true;
+		}
+
+
+		if (false == RightWall && false == ConsoleGameScreen::GetMainScreen()->IsOver(Right))
+		{
+			ConsoleGameScreen::GetMainScreen()->SetPixelChar(Right, L'¡ß');
+		}
+
+		int4 Up = Pos + int4{ 0, i };
+
+		if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Up) && true == Wall::GetIsWall(Up))
+		{
+			UpWall = true;
+		}
+		if (false == UpWall && false == ConsoleGameScreen::GetMainScreen()->IsOver(Up))
+		{
+			ConsoleGameScreen::GetMainScreen()->SetPixelChar(Up, L'¡ß');
+		}
+
+		int4 Down = Pos + int4{ 0, -i };
+
+		if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Down) && true == Wall::GetIsWall(Down))
+		{
+			DownWall = true;
+		}
+
+		if (false == DownWall && false == ConsoleGameScreen::GetMainScreen()->IsOver(Down))
+		{
+			ConsoleGameScreen::GetMainScreen()->SetPixelChar(Down, L'¡ß');
 		}
 	}
 }
+
+

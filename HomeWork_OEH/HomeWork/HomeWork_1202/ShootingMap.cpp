@@ -15,7 +15,7 @@ void ShootingMap::Init(const char _Char)
 }
 
 
-void ShootingMap::Render()
+void ShootingMap::1Render()
 {
 	for (unsigned int y = 0; y < 30; ++y)
 	{

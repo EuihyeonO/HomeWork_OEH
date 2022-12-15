@@ -1,176 +1,125 @@
 #include "Player.h"
-#include "Boom.h"
-#include "obstacle.h"
 #include <conio.h>
-#include <ctime>
-
-int Player::NumOfBoom = 0;
-int Player::MaxNumOfBoom = 10;
+#include "ConsoleGameScreen.h"
+#include "GameEngineDebug.h"
+#include "Boom.h"
+#include "Wall.h"
 
 Player::Player()
+	: ArrBoomObject(100)
 {
-	SetRenderChar(L'★');
-
-	myboom = new Boom*[MaxNumOfBoom];
-
-	for (int i = 0; i < MaxNumOfBoom; i++)
-	{
-		myboom[i] = nullptr;
-	}
+	// 대입
+	// ArrBoomObject = GameEngineArray<Boom>(100);
+	SetRenderChar(L'＠');
 }
 
 Player::~Player()
+// ArrBoomObject()
 {
-	for (int i = 0; i < MaxNumOfBoom; i++)
-	{
-		delete myboom[i];
-		myboom[i] = nullptr;
-	};
-
-	delete[] myboom;
+	// 클래스의 소멸자가 알아서 호출된다.
 }
 
-Boom* Player::DropBoom()
+bool Player::Update()
 {
-	if (Player::GetNumOfBoom() >= 11)
+	if (0 == ArrBoomObject.GetCount())
 	{
-		return nullptr;
-	}
-
-	Boom* _boom = new Boom;
-
-	_boom->SetPos(GetPos());
-	_boom->GetBoomFire()->SetPos(GetPos());
-
-	ConsoleGameScreen::GetMainScreen()->SetPixelChar(_boom->GetPos(), _boom->GetRenderChar());
-	return _boom;
-}
-
-void Player::deleteBoom()
-{
-	for (int i = 0; i < MaxNumOfBoom; i++)
-	{
-		if (myboom[i] == nullptr)
-		{
-			continue;
-		}
-
-		myboom[i]->Explode();
-
-		for (int j = 0; j < MaxNumOfBoom; j++)
-		{
-			if (i == j || myboom[j]==nullptr)
-			{
-				continue;
-			}
-			
-			if(myboom[i]->GetBoomFire()->isThereBoom(myboom[j]->GetPos()) //불꽃이 폭탄과 만나고
-				&& myboom[j]->GetBombTime() > myboom[j]->GetRange()) // 그 폭탄이 아직 터지지 않았다면
-			{
-				myboom[j]->SetBombTime(myboom[j]->GetRange()); //폭탄을 즉시 폭발하게 만듬
-			}
-		}
-
-		if (myboom[i]->GetBombTime() == 0)
-		{
-			delete myboom[i];
-			myboom[i] = nullptr;
-		}	
-	}
-}
-
-bool Player::isThereMyBoom(const int4& pos)
-{
-	for (int i = 0; i < GetMaxNumOfBoom(); i++)
-	{
-		if (myboom[i] == nullptr)
-		{
-			continue;
-		}
-		else if (myboom[i]->GetPos() == pos)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool Player::Update(obstacle& obstacle)
-{
-	ConsoleGameScreen::GetMainScreen()->SetPixelChar(GetPos(), GetRenderChar());
-
-	for (int i = 0; i < Player::GetMaxNumOfBoom(); i++)
-	{
-		if (myboom[i] != nullptr)
-		{
-			ConsoleGameScreen::GetMainScreen()->SetPixelChar(myboom[i]->GetPos(), myboom[i]->GetRenderChar());
-			myboom[i]->BombTimeCount();
-		}
-	}
-
-
-	if (_kbhit() == 0)
-	{
+		MessageBoxAssert("폭탄이 만들어지지 않았습니다.");
 		return false;
 	}
 
+	for (size_t i = 0; i < BoomUseCount; i++)
+	{
+		ArrBoomObject[i].Update();
+	}
+
+	if (0 == _kbhit())
+	{
+		ConsoleGameScreen::GetMainScreen()->SetPixelChar(GetPos(), GetRenderChar());
+
+		return true;
+	}
+
+	// 프로그램 입력이 올때까지 멈추죠?
+	int Input = _getch();
+
 	int4 NextPos = GetPos();
 
-	int input = _getch();
-
-	switch (input)
+	switch (Input)
 	{
+
 	case 'a':
 	case 'A':
+	{
 		NextPos += {-1, 0};
 		break;
-
 	case 'd':
 	case 'D':
-		NextPos += {1, 0};
-		break;
-
+	{
+		NextPos += {1, 0 };
+	}
+	break;
 	case 's':
 	case 'S':
-		NextPos += {0, 1};
-		break;
-
+	{
+		NextPos += { 0, 1 };
+	}
+	break;
 	case 'w':
 	case 'W':
-		NextPos += {0, -1};
-		break;
-
+	{
+		NextPos += { 0, -1 };
+	}
+	break;
 	case 'f':
 	case 'F':
+	{
+		Boom& NewBoomObject = ArrBoomObject[BoomUseCount];
+		NewBoomObject.SetPos(GetPos());
+		++BoomUseCount;
 
-		for (int i = 0; i < Player::GetMaxNumOfBoom(); i++)
-		{
-			if (myboom[i] == nullptr)
-			{
-				myboom[i] = DropBoom();
-				break;
-			}
-		}
-		break;
+	}
+	break;
 	case 'q':
 	case 'Q':
-		return true;
+		return false;
 	default:
 		break;
 	}
+	}
+
+	bool IsMove = true;
+
+	// 플레이어가 화면 바깥으로 나갔다면 이동하지 못하게 한다.
+	// 화면 바깥으로 나갔다면
+	if (true == ConsoleGameScreen::GetMainScreen()->IsOver(NextPos))
+	{
+		// 이동불가
+		IsMove = false;
+	}
+
+	// 폭탄들을 전부다 검사해서 만약 나의 이동위치에 폭탄이 있다면 이동하지 않는다.
+	// 공간적 최적화와
+	// 연산적 최적화가 있습니다.
+	// 근래의 트랜드는
+	// 연산적 최적화를 하는겁니다.
+
+	if (nullptr != Boom::GetBoom(NextPos))
+	{
+		IsMove = false;
+	}
+	if (true == Wall::GetIsWall(NextPos))
+	{
+		IsMove = false;
+	}
 
 
-	if (ConsoleGameScreen::GetMainScreen()->IsOver(NextPos) == 0 
-		&& isThereMyBoom(NextPos) == 0 
-		&& obstacle.isThereObstacle(NextPos) == 0)
+	if (true == IsMove)
 	{
 		SetPos(NextPos);
 	}
 
-		return false;
+	ConsoleGameScreen::GetMainScreen()->SetPixelChar(GetPos(), GetRenderChar());
 
 
-
+	return true;
 }
-

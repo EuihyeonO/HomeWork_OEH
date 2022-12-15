@@ -1,30 +1,42 @@
 #pragma once
 #include "ConsoleGameMath.h"
 #include "GameEngineDebug.h"
+#include <GameEngineArray.h>
 
-class ConsoleGameLine
-{
-	wchar_t* Arr = nullptr;
-	wchar_t BaseChar;
-	size_t XCount = 0;
-
-public:
-	wchar_t& operator[](size_t _Index);
-
-	void Init(size_t _XCount, wchar_t _Char);
-	void Render();
-	void Clear();
-
-	~ConsoleGameLine();
-};
+//class ConsoleGameLine 
+//{
+//	wchar_t* Arr = nullptr;
+//	wchar_t BaseChar;
+//	size_t XCount = 0;
+//
+//public:
+//	wchar_t& operator[](size_t _Index);
+//
+//	void Init(size_t _XCount, wchar_t _Char);
+//	void Render();
+//	void Clear();
+//
+//	~ConsoleGameLine();
+//};
 
 // 설명 :
 class ConsoleGameScreen
 {
+private:
+	static ConsoleGameScreen* MainScreen;
+
 public:
+	static ConsoleGameScreen* GetMainScreen()
+	{
+		return MainScreen;
+	}
+
+public:
+	// constrcuter destructer
 	ConsoleGameScreen();
 	~ConsoleGameScreen();
 
+	// delete Function
 	ConsoleGameScreen(const ConsoleGameScreen& _Other) = delete;
 	ConsoleGameScreen(ConsoleGameScreen&& _Other) noexcept = delete;
 	ConsoleGameScreen& operator=(const ConsoleGameScreen& _Other) = delete;
@@ -38,28 +50,15 @@ public:
 	void ScreenClear();
 
 	bool IsOver(int4 _Pos);
-	
-	wchar_t GetTileChar(int4 pos)
-	{
-		return Lines[pos.Y][pos.X];
-	}
-
-	static ConsoleGameScreen* GetMainScreen()
-	{
-		return MainScreen;
-	}
 
 protected:
 
 
 private:
-	ConsoleGameLine* Lines = nullptr;
 
-	static ConsoleGameScreen* MainScreen;
-
+	// 사용하지 않았다를 *에는 nullptr을 넣어서 표현합니다. 
+	GameEngineArray<GameEngineArray<wchar_t>> Lines;
 	int4 ScreenSize;
 	wchar_t BaseChar = '□';
-
-
 };
 

@@ -9,16 +9,41 @@ public:
 	int Z = 0;
 	int W = 0;
 
-	int4& operator+=(const int4& _pos)
+	// int랑 똑같이 만들려고
+	int4& operator+=(const int4& _Value)
 	{
-		X += _pos.X;
-		Y += _pos.Y;
-
+		X += _Value.X;
+		Y += _Value.Y;
+		Z += _Value.Z;
+		W += _Value.W;
 		return *this;
 	}
 
-	bool operator==(const int4& _pos)
+	int4 operator+(const int4& _Value)
 	{
-		return X == _pos.X && Y == _pos.Y;
+		int4 Result = *this;
+		Result.X += _Value.X;
+		Result.Y += _Value.Y;
+		Result.Z += _Value.Z;
+		Result.W += _Value.W;
+		return Result;
 	}
+
+
+	int4 operator*=(const int& _Value)
+	{
+		X *= _Value;
+		Y *= _Value;
+		Z *= _Value;
+		W *= _Value;
+		return *this;
+	}
+
+
+	// 1 == 1 
+	bool operator==(const int4& _Value)
+	{
+		return X == _Value.X && Y == _Value.Y;
+	}
+
 };

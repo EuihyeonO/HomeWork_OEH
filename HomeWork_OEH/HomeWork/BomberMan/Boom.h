@@ -1,113 +1,53 @@
 #pragma once
 #include "ConsoleGameMath.h"
 #include "ConsoleGameObject.h"
+#include <GameEngineArray.h>
 
-class Player;
+// 설명 :
+
 class ConsoleGameScreen;
-
-class BoomFire
-{
-public:
-
-	bool isThereBoom(int4 pos)
-	{
-		if (upfire == pos)
-		{
-			return true;
-		}
-		if (downfire == pos)
-		{
-			return true;
-		}
-		if (leftfire == pos)
-		{
-			return true;
-		}
-		if (rightfire == pos)
-		{
-			return true;
-		}
-		else 
-		{
-			return false;
-		}
-	}
-
-	void SetPos(int4 pos)
-	{
-		upfire = pos;
-		downfire = pos;
-		leftfire = pos;
-		rightfire = pos;
-	}
-
-	wchar_t GetRenderChar() 
-	{
-		return RenderChar;
-	}
-
-	void SetRenderChar(wchar_t _value)
-	{
-		RenderChar = _value;
-	}
-
-	void Flowfire();
-
-
-private:
-	int4 upfire = {0,0};
-	int4 downfire = {0,0};
-	int4 leftfire = {0,0};
-	int4 rightfire = {0,0};
-
-	wchar_t RenderChar = L'※';
-};
-
-
-
-// Boom 클래스
+class Player;
 class Boom : public ConsoleGameObject
 {
 public:
+	static void BoomMapInit(int4 _Size);
 
+	static void MapClear();
+
+	static Boom* GetBoom(int4 _Size);
+
+	// constrcuter destructer
 	Boom();
 	~Boom();
 
+	// delete Function
 	Boom(const Boom& _Other) = delete;
 	Boom(Boom&& _Other) noexcept = delete;
-	Boom& operator=(const Boom& _Other) = delete;
+
+	Boom& operator=(const Boom& _Other)
+	{
+		Time = _Other.Time;
+		CurRange = _Other.CurRange;
+		Range = _Other.Range;
+
+		return *this;
+	}
 	Boom& operator=(Boom&& _Other) noexcept = delete;
-	
-	int GetBombTime()
+
+	void Update();
+
+	bool IsDeath()
 	{
-		return bombtime;
+		return 0 > Time;
 	}
-
-	void SetBombTime(int _value)
-	{
-		bombtime = _value;
-	}
-
-	void BombTimeCount();
-
-	int GetRange()
-	{
-		return range;
-	}
-
-	BoomFire* GetBoomFire()
-	{
-		return boomfire;
-	}
-
-	void Explode();
 
 protected:
 
 private:
+	static GameEngineArray<GameEngineArray<Boom*>> BoomMap;
 
-	int bombtime = 30;
-	int range = 4;
-	BoomFire* boomfire;
+	int Time = 20;
+	int CurRange = 0;
+	int Range = 4;
 };
 

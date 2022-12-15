@@ -17,11 +17,14 @@
     <ClCompile Include="ConsoleGameObject.cpp">
       <Filter>Console</Filter>
     </ClCompile>
-    <ClCompile Include="obstacle.cpp">
-      <Filter>Contents</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngineDebug.cpp">
       <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,11 +54,14 @@
     <ClInclude Include="ConsoleGameObject.h">
       <Filter>Console</Filter>
     </ClInclude>
-    <ClInclude Include="obstacle.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineDebug.h">
       <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Contents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

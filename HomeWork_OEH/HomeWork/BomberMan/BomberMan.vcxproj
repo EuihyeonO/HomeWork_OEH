@@ -71,16 +71,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>..\GameEngineBase\;..\GameArray\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>..\GameEngineBase\;..\GameArray\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>..\GameEngineBase\;..\GameArray\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\GameEngineBase\;$(IncludePath)</IncludePath>
+    <IncludePath>..\GameEngineBase\;..\GameArray\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -154,11 +154,15 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="obstacle.cpp">
+    <ClCompile Include="Monster.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Wall.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boom.h">
@@ -175,11 +179,20 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="obstacle.h">
+    <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Wall.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameArray\GameArray.vcxproj">
+      <Project>{d59f20b1-7cc0-4e7a-a3c9-f17a9b71ed89}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
