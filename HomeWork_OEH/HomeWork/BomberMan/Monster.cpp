@@ -57,25 +57,25 @@ void Monster::MobRender()
 
 void Monster::MobMoveLeftRight(int MobNumber)
 {
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + RightMove))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].RightMove))
 	{
-		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + RightMove);
+		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].RightMove);
 	}
 	else
 	{
-		RightMove *= -1;
+		Mob[MobNumber - 1].RightMove *= -1;
 	}
 }
 
 void Monster::MobMoveUpDown(int MobNumber)
 {
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + UpMove))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].UpMove))
 	{
-		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + UpMove);
+		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].UpMove);
 	}
 
 	else
 	{
-		UpMove *= -1;
+		Mob[MobNumber - 1].UpMove *= -1;
 	}
 }
