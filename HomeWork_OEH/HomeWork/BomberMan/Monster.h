@@ -41,7 +41,7 @@ public:
 protected:
 
 private:
-	GameEngineArray<Monster> Mob;
+	GameEngineArray<Monster> Mob; //static 으로 선언하면, 관리가 좀 더 쉬워질듯?
 	static int NumOfMob;
 	int4 RightMove = {1,0};
 	int4 UpMove = {0,1};
