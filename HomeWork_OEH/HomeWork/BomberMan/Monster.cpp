@@ -2,7 +2,7 @@
 #include "ConsoleGameScreen.h"
 
 int Monster::NumOfMob = 0;
-
+GameEngineArray<Monster> Monster::Mob;
 Monster::Monster()
 {
 }
@@ -16,6 +16,7 @@ void Monster::MobInit()
 	for (int i = 0; i < NumOfMob; i++)
 	{
 		Mob[i].SetRenderChar(L'ขอ');
+		Mob[i].MobIndex = i;
 	}
 }
 
@@ -57,7 +58,8 @@ void Monster::MobRender()
 
 void Monster::MobMoveLeftRight(int MobNumber)
 {
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].RightMove))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].RightMove)
+		/* && false == isThereMob(Mob[MobNumber - 1].GetPos() + Mob[MobNumber - 1].RightMove)*/)
 	{
 		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].RightMove);
 	}
@@ -69,7 +71,8 @@ void Monster::MobMoveLeftRight(int MobNumber)
 
 void Monster::MobMoveUpDown(int MobNumber)
 {
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].UpMove))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].UpMove)
+		/* && false == isThereMob(Mob[MobNumber - 1].GetPos() + Mob[MobNumber - 1].UpMove) */ )
 	{
 		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].UpMove);
 	}
@@ -78,4 +81,17 @@ void Monster::MobMoveUpDown(int MobNumber)
 	{
 		Mob[MobNumber - 1].UpMove *= -1;
 	}
+}
+
+bool Monster::isThereMob(int4 pos)
+{
+	for (int i = 0; i < NumOfMob; i++)
+	{
+		if (pos == Mob[i].GetPos())
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
