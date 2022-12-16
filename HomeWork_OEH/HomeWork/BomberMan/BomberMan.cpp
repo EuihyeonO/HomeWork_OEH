@@ -45,7 +45,7 @@ int main()
         monster.MobMoveUpDown(2);
         monster.MobMoveLeftRight(3);  //간결하게 할 방법?
 
-        monster.MobRender(); //왜 끝에 1칸을 안가는 몹이 있지? (멤버변수 upmove와 rightmove를 공유하는 듯함 코드수정필요)
+        monster.MobRender();
 
         bool End = MainPlayer.Update();
 
