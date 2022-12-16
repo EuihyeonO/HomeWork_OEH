@@ -19,17 +19,32 @@ void Monster::MobInit()
 	}
 }
 
-void Monster::AddMob()
+void Monster::AddMob(int4 pos)
 {
+	int4* CopyPos = new int4[NumOfMob];
+
+	for (int i = 0; i < NumOfMob; i++) //Resize만 하면, 기본 데이터가 사라져서 별도로 데이터 복사함수 추가 ( 근데 왜 데이터가 사라지지? )
+	{
+		CopyPos[i] = Mob[i].GetPos();
+	}
+
 	++NumOfMob;
+
 	Mob.ReSize(NumOfMob);
 
+	for (int i = 0; i < NumOfMob-1; i++)
+	{
+		Mob[i].SetPos(CopyPos[i]);
+	}
+
 	MobInit();
+
+	SetMob(NumOfMob, pos);
 }
 
-void Monster::SetMob(int MobIndex, int4 _pos)
+void Monster::SetMob(int MobNumber, int4 _pos)
 {
-	Mob[MobIndex].SetPos(_pos);
+	Mob[MobNumber-1].SetPos(_pos);
 }
 
 void Monster::MobRender()
@@ -40,11 +55,11 @@ void Monster::MobRender()
 	}
 }
 
-void Monster::MobMoveLeftRight(int Mobindex)
+void Monster::MobMoveLeftRight(int MobNumber)
 {
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[Mobindex].GetPos() + RightMove))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + RightMove))
 	{
-		Mob[Mobindex].SetPos(Mob[Mobindex].GetPos() + RightMove);
+		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + RightMove);
 	}
 	else
 	{
@@ -52,12 +67,13 @@ void Monster::MobMoveLeftRight(int Mobindex)
 	}
 }
 
-void Monster::MobMoveUpDown(int Mobindex)
+void Monster::MobMoveUpDown(int MobNumber)
 {
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[Mobindex].GetPos() + UpMove))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + UpMove))
 	{
-		Mob[Mobindex].SetPos(Mob[Mobindex].GetPos() + UpMove);
+		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + UpMove);
 	}
+
 	else
 	{
 		UpMove *= -1;

@@ -25,12 +25,9 @@ int main()
 
     Screen.ScreenInit(ScreenSize, L'■');
 
-    monster.AddMob();
-    monster.AddMob();
-    monster.AddMob();
-    monster.SetMob(0, { 3, 0 });
-    monster.SetMob(1, { 0, 4 });
-    monster.SetMob(2, { 5, 6 }); //간결하게 할 방법? && addMob/SetMob 번갈아서 하면 이전 데이터 저장이 안됨 : 해결필요
+    monster.AddMob({3,0});
+    monster.AddMob({0,4});
+    monster.AddMob({5,6});
 
     Boom::BoomMapInit(ScreenSize);
     Wall::WallMapInit(ScreenSize);
@@ -44,9 +41,9 @@ int main()
 
         Wall::WallUpdate();
 
-        monster.MobMoveLeftRight(0);
-        monster.MobMoveUpDown(1);
-        monster.MobMoveLeftRight(2);  //간결하게 할 방법?
+        monster.MobMoveLeftRight(1);
+        monster.MobMoveUpDown(2);
+        monster.MobMoveLeftRight(3);  //간결하게 할 방법?
 
         monster.MobRender(); //3번째 몹은 왜 끝에 1칸을 안가지?
 

@@ -21,11 +21,11 @@ public:
 
 	Monster& operator=(Monster&& _Other) noexcept = delete;
 
-	void MobMoveLeftRight(int Mobindex);
+	void MobMoveLeftRight(int MobNumber);
 
-	void MobMoveUpDown(int Mobindex);
+	void MobMoveUpDown(int MobNumber);
 
-	void AddMob();
+	void AddMob(int4 pos);
 
 	static int GetNumOfMob()
 	{
@@ -34,7 +34,7 @@ public:
 
 	void MobInit();
 
-	void SetMob(int MobIndex, int4 _pos);
+	void SetMob(int MobNumber, int4 _pos);
 
 	void MobRender();
 
