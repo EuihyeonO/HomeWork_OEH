@@ -48,7 +48,7 @@ int main()
         monster.MobMoveUpDown(1);
         monster.MobMoveLeftRight(2);  //간결하게 할 방법?
 
-        monster.MobRender();
+        monster.MobRender(); //3번째 몹은 왜 끝에 1칸을 안가지?
 
         bool End = MainPlayer.Update();
 
