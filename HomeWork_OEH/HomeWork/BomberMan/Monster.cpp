@@ -1,8 +1,42 @@
 #include "Monster.h"
 #include "ConsoleGameScreen.h"
+#include "Wall.h"
 
-int Monster::NumOfMob = 0;
-GameEngineArray<Monster> Monster::Mob;
+/*static */GameEngineArray<Monster> Monster::AllMonster(10);
+
+size_t Monster::MonsterUpdateCount = 0;
+
+void Monster::AllMonsterInit(wchar_t _BaseChar)
+{
+	for (size_t i = 0; i < AllMonster.GetCount(); i++)
+	{
+		AllMonster[i].Off();
+		AllMonster[i].SetRenderChar(_BaseChar);
+	}
+}
+
+Monster* Monster::CreateMonster(int4 _Pos, int4 _Dir)
+{
+	Monster* ReturnMonster = &AllMonster[MonsterUpdateCount];
+	AllMonster[MonsterUpdateCount].SetPos(_Pos);
+	AllMonster[MonsterUpdateCount].SetDir(_Dir);
+	AllMonster[MonsterUpdateCount++].On();
+	return ReturnMonster;
+}
+
+void Monster::AllMonsterUpdate()
+{
+	for (size_t i = 0; i < AllMonster.GetCount(); i++)
+	{
+		if (false == AllMonster[i].GetIsUpdate())
+		{
+			continue;
+		}
+
+		AllMonster[i].Update();
+	}
+}
+
 Monster::Monster()
 {
 }
@@ -11,87 +45,63 @@ Monster::~Monster()
 {
 }
 
-void Monster::MobInit()
+void Monster::Init()
 {
-	for (int i = 0; i < NumOfMob; i++)
-	{
-		Mob[i].SetRenderChar(L'♨');
-		Mob[i].MobIndex = i;
-	}
+	//int4 LeftPos = GetPos() + int4::LEFT;
+	//int4 RightPos = GetPos() + int4::RIHGT;
+	//int4 UpPos = GetPos() + int4::UP;
+	//int4 DownPos = GetPos() + int4::DOWN;
+
+	//// 왼쪽이든 오른쪽이든 한곳이 뚤렸어.
+	//if (
+	//	ConsoleGameScreen::GetMainScreen()->IsOver(LeftPos) ||
+	//	ConsoleGameScreen::GetMainScreen()->IsOver(RightPos)
+	//	)
+	//{
+	//	// 왼쪽이든 오른쪽이든 한곳이 벽이 없어.
+	//	if (
+	//		false == Wall::GetIsWall(LeftPos) ||
+	//		false == Wall::GetIsWall(RightPos)
+	//		)
+	//	{
+	//		Dir = int4::LEFT;
+	//		return;
+	//	}
+	//}
+
+	//if (ConsoleGameScreen::GetMainScreen()->IsOver(UpPos)
+	//	&& ConsoleGameScreen::GetMainScreen()->IsOver(DownPos))
+	//{
+	//	Dir = int4::LEFT;
+	//	return;
+	//}
+
 }
 
-void Monster::AddMob(int4 pos)
+void Monster::killmonster(int4 pos)
 {
-	int4* CopyPos = new int4[NumOfMob];
-
-	for (int i = 0; i < NumOfMob; i++) //Resize만 하면, 기본 데이터가 사라져서 별도로 데이터 복사함수 추가 ( 근데 왜 데이터가 사라지지? )
+	for(int i = 0; i< MonsterUpdateCount;i++)
 	{
-		CopyPos[i] = Mob[i].GetPos();
-	}
-
-	++NumOfMob;
-
-	Mob.ReSize(NumOfMob);
-
-	for (int i = 0; i < NumOfMob-1; i++)
-	{
-		Mob[i].SetPos(CopyPos[i]);
-	}
-
-	MobInit();
-
-	SetMob(NumOfMob, pos);
-}
-
-void Monster::SetMob(int MobNumber, int4 _pos)
-{
-	Mob[MobNumber-1].SetPos(_pos);
-}
-
-void Monster::MobRender()
-{
-	for (int i = 0; i < NumOfMob; i++)
-	{
-		Mob[i].Render();
-	}
-}
-
-void Monster::MobMoveLeftRight(int MobNumber)
-{
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].RightMove)
-		/* && false == isThereMob(Mob[MobNumber - 1].GetPos() + Mob[MobNumber - 1].RightMove)*/)
-	{
-		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].RightMove);
-	}
-	else
-	{
-		Mob[MobNumber - 1].RightMove *= -1;
-	}
-}
-
-void Monster::MobMoveUpDown(int MobNumber)
-{
-	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].UpMove)
-		/* && false == isThereMob(Mob[MobNumber - 1].GetPos() + Mob[MobNumber - 1].UpMove) */ )
-	{
-		Mob[MobNumber-1].SetPos(Mob[MobNumber-1].GetPos() + Mob[MobNumber - 1].UpMove);
-	}
-
-	else
-	{
-		Mob[MobNumber - 1].UpMove *= -1;
-	}
-}
-
-bool Monster::isThereMob(int4 pos)
-{
-	for (int i = 0; i < NumOfMob; i++)
-	{
-		if (pos == Mob[i].GetPos())
+		if (pos == Monster::AllMonster[i].GetPos())
 		{
-			return true;
-		}
+			Monster::AllMonster[i].Off();
+		}	
+	}
+}
+
+
+void Monster::Update()
+{
+	int4 Pos = GetPos();
+	int4 movepos = Pos + Dir;
+
+	if (ConsoleGameScreen::GetMainScreen()->IsOver(movepos))
+	{
+		Dir.X *= -1;
+		Dir.Y *= -1;
 	}
 
-	return false;
+	SetPos(Pos + Dir);
+
+	Render();
 }

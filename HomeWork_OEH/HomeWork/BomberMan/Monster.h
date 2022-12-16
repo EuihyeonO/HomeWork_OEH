@@ -1,16 +1,24 @@
 #pragma once
-#include "ConsoleGameObject.h"
 #include "ConsoleGameMath.h"
 #include <GameEngineArray.h>
+#include "ConsoleGameObject.h"
 
+// Ό³Έν :
 class Monster : public ConsoleGameObject
 {
 
 public:
+	static size_t MonsterUpdateCount;
 
-	Monster();
-	~Monster();
+	static Monster* CreateMonster(int4 _Pos, int4 _Dir);
 
+	static void AllMonsterInit(wchar_t _BaseChar);
+
+	static void AllMonsterUpdate();
+
+	static void killmonster(int4 pos);
+
+	// delete Function
 	Monster(const Monster& _Other) = delete;
 	Monster(Monster&& _Other) noexcept = delete;
 
@@ -21,34 +29,24 @@ public:
 
 	Monster& operator=(Monster&& _Other) noexcept = delete;
 
-	void MobMoveLeftRight(int MobNumber);
-
-	void MobMoveUpDown(int MobNumber);
-
-	void AddMob(int4 pos);
-
-	static int GetNumOfMob()
+	void SetDir(int4 _Dir)
 	{
-		return NumOfMob;
+		Dir = _Dir;
 	}
 
-	void MobInit();
+	void Update();
 
-	void SetMob(int MobNumber, int4 _pos);
-
-	void MobRender();
-
-	static bool isThereMob(int4 pos);
+	Monster();
+	~Monster();
 
 protected:
 
 private:
-	static GameEngineArray<Monster> Mob; 
-	static int NumOfMob;
+	static GameEngineArray<Monster> AllMonster;
 
-	int MobIndex = 0;
+	int4 Dir;
 
-	int4 RightMove = {1,0};
-	int4 UpMove = {0,1};
+	void Init();
+
 };
 

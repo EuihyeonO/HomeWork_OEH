@@ -36,6 +36,11 @@ public:
 
 	void Update();
 
+	void BoomByFire()
+	{
+		Time = -1;
+	}
+
 	bool IsDeath()
 	{
 		return 0 > Time;

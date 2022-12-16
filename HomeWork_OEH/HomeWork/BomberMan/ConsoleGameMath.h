@@ -4,6 +4,12 @@
 class int4
 {
 public:
+	static const int4 LEFT;
+	static const int4 RIHGT;
+	static const int4 UP;
+	static const int4 DOWN;
+
+public:
 	int X = 0;
 	int Y = 0;
 	int Z = 0;
@@ -27,16 +33,6 @@ public:
 		Result.Z += _Value.Z;
 		Result.W += _Value.W;
 		return Result;
-	}
-
-
-	int4 operator*=(const int& _Value)
-	{
-		X *= _Value;
-		Y *= _Value;
-		Z *= _Value;
-		W *= _Value;
-		return *this;
 	}
 
 

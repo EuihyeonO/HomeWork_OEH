@@ -10,7 +10,7 @@ Player::Player()
 {
 	// 대입
 	// ArrBoomObject = GameEngineArray<Boom>(100);
-	SetRenderChar(L'＠');
+	SetRenderChar(L'★');
 }
 
 Player::~Player()
@@ -51,40 +51,44 @@ bool Player::Update()
 	case 'A':
 	{
 		NextPos += {-1, 0};
-		break;
+	}
+	break;
+
 	case 'd':
 	case 'D':
 	{
 		NextPos += {1, 0 };
 	}
 	break;
+
 	case 's':
 	case 'S':
 	{
 		NextPos += { 0, 1 };
 	}
 	break;
+
 	case 'w':
 	case 'W':
 	{
 		NextPos += { 0, -1 };
 	}
 	break;
+
 	case 'f':
 	case 'F':
-	{
-		Boom& NewBoomObject = ArrBoomObject[BoomUseCount];
-		NewBoomObject.SetPos(GetPos());
-		++BoomUseCount;
+		if (Boom::GetBoom(GetPos()) == nullptr)
+		{
+			Boom& NewBoomObject = ArrBoomObject[BoomUseCount++];
+			NewBoomObject.SetPos(GetPos());
+		}
+		break;
 
-	}
-	break;
 	case 'q':
 	case 'Q':
 		return false;
 	default:
 		break;
-	}
 	}
 
 	bool IsMove = true;
@@ -103,15 +107,14 @@ bool Player::Update()
 	// 근래의 트랜드는
 	// 연산적 최적화를 하는겁니다.
 
-	if (nullptr != Boom::GetBoom(NextPos))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(NextPos) && nullptr != Boom::GetBoom(NextPos))
 	{
 		IsMove = false;
 	}
-	if (true == Wall::GetIsWall(NextPos))
+	if (false == ConsoleGameScreen::GetMainScreen()->IsOver(NextPos) && true == Wall::GetIsWall(NextPos))
 	{
 		IsMove = false;
 	}
-
 
 	if (true == IsMove)
 	{
