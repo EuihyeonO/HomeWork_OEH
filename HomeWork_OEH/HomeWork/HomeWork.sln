@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameArray", "GameArray\Game
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource_Stardew_Valley", "Resource_Stardew_Valley", "{C47A798C-0821-468D-9A87-DF66965EEC77}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualFunc", "VirtualFunc\VirtualFunc.vcxproj", "{4B18D5DF-B053-4692-953F-9A6F6D873B25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -67,6 +69,14 @@ Global
 		{D59F20B1-7CC0-4E7A-A3C9-F17A9B71ED89}.Release|x64.Build.0 = Release|x64
 		{D59F20B1-7CC0-4E7A-A3C9-F17A9B71ED89}.Release|x86.ActiveCfg = Release|Win32
 		{D59F20B1-7CC0-4E7A-A3C9-F17A9B71ED89}.Release|x86.Build.0 = Release|Win32
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Debug|x64.ActiveCfg = Debug|x64
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Debug|x64.Build.0 = Debug|x64
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Debug|x86.ActiveCfg = Debug|Win32
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Debug|x86.Build.0 = Debug|Win32
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Release|x64.ActiveCfg = Release|x64
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Release|x64.Build.0 = Release|x64
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Release|x86.ActiveCfg = Release|Win32
+		{4B18D5DF-B053-4692-953F-9A6F6D873B25}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
