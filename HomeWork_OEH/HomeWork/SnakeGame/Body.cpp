@@ -13,11 +13,6 @@ void Body::CreateBody(int4 _pos)
 	CurBody[NumOfCurBody] = new Body;
 
 	int4 BodyPos = { rand() % ConsoleGameScreen::GetMainScreen()->GetScreenSize().X, rand() % ConsoleGameScreen::GetMainScreen()->GetScreenSize().Y };
-	
-	while(BodyPos == _pos)
-	{
-		BodyPos = { rand() % ConsoleGameScreen::GetMainScreen()->GetScreenSize().X, rand() % ConsoleGameScreen::GetMainScreen()->GetScreenSize().Y };
-	}
 
 	int i = 0;
 	bool isSame = false;
@@ -34,7 +29,7 @@ void Body::CreateBody(int4 _pos)
 				break;
 			}
 
-			if (BodyPos == CurBody[i]->GetPos())
+			if (BodyPos == CurBody[i]->GetPos() || BodyPos == _pos)
 			{
 				isSame = true;
 				break;
