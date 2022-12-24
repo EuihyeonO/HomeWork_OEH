@@ -10,7 +10,7 @@ void Body::CreateBody(int4 _pos)
 {
 	srand(time(nullptr));
 
-	CurBody[NumOfCurBody] = new Body; //릭을 없애기 위해 배열형으로 선언하여, 인덱스당 하나씩 동적할당
+	CurBody[NumOfCurBody] = new Body; //릭이 남지 않게하는 것과 동시에 바디관리를 편하게 하기 위해 배열형으로 선언하여, 인덱스당 하나씩 동적할당
 
 	int4 BodyPos = { rand() % ConsoleGameScreen::GetMainScreen()->GetScreenSize().X, rand() % ConsoleGameScreen::GetMainScreen()->GetScreenSize().Y };
 
